@@ -1,0 +1,5 @@
+ikuzo_rma:
+  form:
+    title: SAV
+    active: Activer la page de SAV
+    email: Adresse e-mail à laquelle envoyer les demandes de SAV

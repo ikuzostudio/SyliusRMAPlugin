@@ -1,0 +1,5 @@
+ikuzo_rma:
+  form:
+    title: RMA
+    active: Enable RMA page
+    email: E-mail address to send RMA requests to

@@ -1,0 +1,25 @@
+
+sylius_ui:
+  events:
+    sylius.admin.channel.form.second_column_content:
+      blocks:
+        avis_verifies:
+          template: '@IkuzoSyliusRMAPlugin/Channel/_form.html.twig'
+          priority: 5
+
+# sylius_grid:
+#     grids:
+#       sylius_admin_order:
+#         filters:
+#           avisVerifiesEmailsSent:
+#             type: boolean
+#             label: ikuzo_avis_verifies.grid.filters.email_sent
+
+# winzou_state_machine:
+#   sylius_order:
+#     callbacks:
+#       after:
+#         sylius_send_avisverifies:
+#           on: ["fulfill"]
+#           do: ["@ikuzo_sylius_avis_verifies.event_listener.on_order_fulfilled", "sendToAvisVerifies"]
+#           args: ["object"]
