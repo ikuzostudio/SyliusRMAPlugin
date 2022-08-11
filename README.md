@@ -34,3 +34,36 @@ imports:
   ...
   - { resource: "@IkuzoSyliusRMAPlugin/Resources/config/app/config.yaml"}
 ```
+
+Add routes in `config/routes.yaml`
+
+```yaml
+# config/routes.yaml
+
+ikuzo_rma_routes:
+    resource: "@IkuzoSyliusRMAPlugin/Resources/config/routes.yaml"
+    prefix: /{_locale}
+    requirements:
+        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+```
+
+Add the RMAChannelInterface to the Channel model and implement it with the RMAChannelTrait
+```php
+
+use Ikuzo\SyliusRMAPlugin\Model\RMAChannelInterface;
+use Ikuzo\SyliusRMAPlugin\Model\RMAChannelTrait;
+
+class Channel extends BaseChannel implements RMAChannelInterface
+{
+    use RMAChannelTrait;
+}
+```
+
+Create a migration and run it
+```bash
+bin/console make:migration
+bin/console doctrine:migration:migrate
+```
+
+Go in the admin panel and enable the RMA for the wanted channels
+

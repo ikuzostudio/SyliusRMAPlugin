@@ -23,3 +23,10 @@ sylius_ui:
 #           on: ["fulfill"]
 #           do: ["@ikuzo_sylius_avis_verifies.event_listener.on_order_fulfilled", "sendToAvisVerifies"]
 #           args: ["object"]
+
+sylius_mailer:
+    emails:
+        rma_request:
+            subject: RMA request
+            enabled: true
+            template: '@IkuzoSyliusRMAPlugin\rma-email.txt.twig'

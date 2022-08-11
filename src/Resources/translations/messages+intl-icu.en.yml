@@ -1,0 +1,21 @@
+ikuzo_rma:
+  email:
+    customer_sent_rma_request: 'Customer {customer} (ID: {id}) sent an RMA request.'
+    rma_date: 'Date: {date}'
+    order: 'Order #: {order} (ID: {id})'
+    order_date: 'Order date: {date}'
+    reason: 'Reason: {reason}'
+    comment: 'Comment: '
+    items_concerned: 'Items concerned: '
+
+  form:
+    title: RMA
+    active: Enable RMA page
+    email: E-mail address to send RMA requests to
+    reason: Reason
+    comment: Comment
+    submit: Send RMA request
+    dropdown:
+      select_order: Select an order 
+    invalid: Form is not valid
+    request_sent: Your RMA request has been sent.

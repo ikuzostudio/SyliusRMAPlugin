@@ -8,3 +8,7 @@ services:
   Ikuzo\SyliusRMAPlugin\:
       resource: '../../../src/*'
       exclude: '../../../src/{Entity,Migrations,Tests,Kernel.php}'
+
+  Ikuzo\SyliusRMAPlugin\Controller\:
+      resource: '../../../src/Controller'
+      tags: [ 'controller.service_arguments' ]

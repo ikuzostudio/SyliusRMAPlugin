@@ -1,0 +1,28 @@
+{% block subject %}
+{% endblock %}
+
+{% block body %}
+    {{ 'ikuzo_rma.email.customer_sent_rma_request'|trans({'customer': customer.fullname, 'id': customer.id }) }}
+
+    <br/>
+    <br/>
+
+    {{ 'ikuzo_rma.email.rma_date'|trans({'date': 'now'|date('d/m/Y H:i:s')}) }}
+    <br/>
+    {{ 'ikuzo_rma.email.order_date'|trans({'date': order.checkoutCompletedAt|date('d/m/Y H:i:s')}) }}
+    <br/>
+    {{ 'ikuzo_rma.email.order'|trans({'order': order.number, 'id': order.id}) }}
+    <br/>
+    {{ 'ikuzo_rma.email.items_concerned'|trans }}
+    <br/>
+    {% for item in data.items %}
+        {{ item.productName }} - {{ item.variantName }}<br/>
+    {% endfor %}
+
+    <br/>
+    {{ 'ikuzo_rma.email.reason'|trans({'reason': data.reason})}}
+    <br/>
+    {{ 'ikuzo_rma.email.comment'|trans }}<br/>
+    {{ data.comment }}
+
+{% endblock %}
