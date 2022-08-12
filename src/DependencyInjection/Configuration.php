@@ -14,8 +14,16 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('ikuzo_sylius_rma_plugin');
+        $treeBuilder = new TreeBuilder('ikuzo_sylius_rma');
         $rootNode = $treeBuilder->getRootNode();
+
+        $rootNode
+            ->children()
+                ->arrayNode('reasons')
+                    ->scalarPrototype()->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

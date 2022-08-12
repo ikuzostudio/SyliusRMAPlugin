@@ -1,9 +1,4 @@
 ikuzo_rma_contact_page:
-    path: /contact/rma
+    path: /account/orders/{number}/rma
     defaults:
-        _controller: Ikuzo\SyliusRMAPlugin\Controller\RMAController::rmaContactAction
-    
-ikuzo_rma_ajax_get_rma_form:
-    path: /contact/rma/get-form
-    defaults:
-        _controller: Ikuzo\SyliusRMAPlugin\Controller\RMAController::rmaFormAction
+        _controller: ikuzo_sylius_rma.controller.rma::rmaContactAction

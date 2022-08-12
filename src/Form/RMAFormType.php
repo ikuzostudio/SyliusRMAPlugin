@@ -31,20 +31,13 @@ class RMAFormType extends AbstractType
                 'label' => 'ikuzo_rma.form.products',
             ])
             ->add('reason', ChoiceType::class, [
-                'choices' => [
-                    'Damaged' => 'Damaged',
-                    'Wrong product' => 'Wrong product',
-                    'Other' => 'Other',
-                ],
+                'choices' => array_flip($options['reasons']),
                 'required' => true,
                 'label' => 'ikuzo_rma.form.reason',
             ])
             ->add('comment', TextareaType::class, [
                 'required' => false,
                 'label' => 'ikuzo_rma.form.comment',
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'ikuzo_rma.form.submit',
             ])
         ;
     }
@@ -53,7 +46,9 @@ class RMAFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => null,
+            'reasons' => []
         ]);
+        $resolver->setAllowedTypes('reasons', 'array');
         $resolver->setRequired('order');
     }
 }

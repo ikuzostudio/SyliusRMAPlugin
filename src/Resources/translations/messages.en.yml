@@ -9,6 +9,7 @@ ikuzo_rma:
     items_concerned: 'Items concerned: '
 
   form:
+    products: Products
     title: RMA
     active: Enable RMA page
     email: E-mail address to send RMA requests to
@@ -19,3 +20,12 @@ ikuzo_rma:
       select_order: Select an order 
     invalid: Form is not valid
     request_sent: Your RMA request has been sent.
+    reasons:
+      damaged: Damaged
+      wrong_product: Wrong product
+      other: Other
+
+  ui:
+    rma_demand: After Sales Service demand
+    make_a_demand: Make a demand regarding your order
+    send_rma: RMA

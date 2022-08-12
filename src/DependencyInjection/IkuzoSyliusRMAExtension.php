@@ -20,6 +20,8 @@ final class IkuzoSyliusRMAExtension extends Extension
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
+        $container->setParameter('ikuzo_sylius_rma.reasons', $config['reasons']);
+
         $loader->load('services.yaml');
     }
 

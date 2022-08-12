@@ -9,6 +9,7 @@ ikuzo_rma:
     items_concerned: 'Articles concernés: '
 
   form:
+    products: Produits
     title: SAV
     active: Activer la page de SAV
     email: Adresse e-mail pour envoyer les demandes de SAV
@@ -19,3 +20,12 @@ ikuzo_rma:
       select_order: Sélectionnez une commande
     invalid: Le formulaire n'est pas valide
     request_sent: Votre demande de SAV a été envoyée.
+    reasons:
+      damaged: Endommagé
+      wrong_product: Mauvais produit
+      other: Autre
+    
+  ui:
+    rma_demand: Demande de SAV
+    make_a_demand: Faites une demande concenrnant vore commande
+    send_rma: SAV

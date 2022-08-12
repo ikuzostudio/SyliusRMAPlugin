@@ -7,58 +7,38 @@ use Ikuzo\SyliusRMAPlugin\Form\RMAFormType;
 use Sylius\Component\Core\Model\Order;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ikuzo\SyliusRMAPlugin\Model\RMAChannelInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RMAController extends AbstractController
 {
-    public function rmaContactAction(Request $request, ManagerRegistry $em, ChannelContextInterface $channelContext): Response
+    public function __construct(private array $reasons)
     {
-        $channel = $channelContext->getChannel();
-
-        if (!$channel instanceof RMAChannelInterface || !$channel->isRMAEnabled()) {
-            return new RedirectResponse($this->generateUrl('sylius_shop_homepage'));
-        }
-
-        
-        $user = $this->getUser();
-        $orders = $em->getRepository(Order::class)->findBy(['customer' => $user]);
-
-        return $this->render('@IkuzoSyliusRMAPlugin/rma-contact.html.twig', [
-            'orders' => $orders,
-        ]);
     }
 
-    public function rmaFormAction(Request $request, ManagerRegistry $em, SenderInterface $emailSender, ChannelContextInterface $channelContext, TranslatorInterface $translator)
+    public function rmaContactAction(Request $request, String $number, ManagerRegistry $em, ChannelContextInterface $channelContext, SenderInterface $emailSender, TranslatorInterface $translator): Response
     {
-        $data = [];
-
         $channel = $channelContext->getChannel();
-
         if (!$channel instanceof RMAChannelInterface || !$channel->isRMAEnabled()) {
             return new RedirectResponse($this->generateUrl('sylius_shop_homepage'));
         }
 
-        $order = $request->query->get('id');
-        if (!$order) {
-            return new JsonResponse(['error' => 'Order not found'], Response::HTTP_NOT_FOUND);
-        }
         /** @var Order|null $order */
-        $order = $em->getRepository(Order::class)->find($order);
-
-        if (!$order) {
-            return new JsonResponse(['error' => 'Order not found'], Response::HTTP_NOT_FOUND);
+        $order = $em->getRepository(Order::class)->findOneByNumber($number);
+        if (!$order instanceof Order) {
+            throw new NotFoundHttpException('Order not found');
         }
+
+        $data = [];
 
         $form = $this->createForm(RMAFormType::class, $data, [
             'order' => $order,
-            'method' => 'POST',
-            'action' => $this->generateUrl($request->get('_route'), ['id' => $order->getId()]),
+            'reasons' => $this->reasons
         ]);
 
         $form->handleRequest($request);
@@ -73,20 +53,15 @@ class RMAController extends AbstractController
                     'customer' => $order->getCustomer(),
                 ]);
                 $this->addFlash('success', $translator->trans('ikuzo_rma.form.request_sent'));
-
-                return new RedirectResponse($this->generateUrl('ikuzo_rma_contact_page'));
+            } else {
+                $this->addFlash('error', $translator->trans('ikuzo_rma.form.invalid'));
             }
-
-            $this->addFlash('error', $translator->trans('ikuzo_rma.form.invalid'));
-            return new RedirectResponse($this->generateUrl('ikuzo_rma_contact_page'));
+            return new RedirectResponse($this->generateUrl('sylius_shop_account_order_index'));
         }
 
-        $formView = $form->createView();
-
-        $html = $this->renderView('@IkuzoSyliusRMAPlugin/_partials/_form.html.twig', [
-            'form' => $formView,
+        return $this->render('@IkuzoSyliusRMAPlugin/rma.html.twig', [
+            'form' => $form->createView(),
+            'order' => $order
         ]);
-
-        return new JsonResponse(['html' => $html]);
     }
 }

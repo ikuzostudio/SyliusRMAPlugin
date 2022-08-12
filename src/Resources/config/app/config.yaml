@@ -7,13 +7,22 @@ sylius_ui:
           template: '@IkuzoSyliusRMAPlugin/Channel/_form.html.twig'
           priority: 5
 
-# sylius_grid:
-#     grids:
-#       sylius_admin_order:
-#         filters:
-#           avisVerifiesEmailsSent:
-#             type: boolean
-#             label: ikuzo_avis_verifies.grid.filters.email_sent
+sylius_grid:
+  templates:
+    action:
+      send_rma: '@IkuzoSyliusRMAPlugin/Grid/Action/send_rma.html.twig'
+  grids:
+    sylius_shop_account_order:
+      actions:
+        item:
+          rma:
+            type: send_rma
+            label: ikuzo_rma.ui.send_rma
+            options:
+              link:
+                route: ikuzo_rma_contact_page
+                parameters:
+                  number: resource.number
 
 # winzou_state_machine:
 #   sylius_order:
@@ -30,3 +39,9 @@ sylius_mailer:
             subject: RMA request
             enabled: true
             template: '@IkuzoSyliusRMAPlugin\rma-email.txt.twig'
+
+ikuzo_sylius_rma:
+  reasons:
+    damaged: ikuzo_rma.form.reasons.damaged
+    wrong_product: ikuzo_rma.form.reasons.wrong_product
+    other: ikuzo_rma.form.reasons.other
