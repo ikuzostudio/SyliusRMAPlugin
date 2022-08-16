@@ -34,6 +34,10 @@ class RMAController extends AbstractController
             throw new NotFoundHttpException('Order not found');
         }
 
+        if ($order->getState() != 'fulfilled') {
+            return new RedirectResponse($this->generateUrl('sylius_shop_account_order_index'));
+        }
+
         $data = [];
 
         $form = $this->createForm(RMAFormType::class, $data, [

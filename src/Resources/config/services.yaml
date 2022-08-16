@@ -10,8 +10,3 @@ services:
     arguments:
       - '%ikuzo_sylius_rma.reasons%'
     tags: [ 'controller.service_arguments' ]
-
-  ikuzo_sylius_rma.grid.shop_account_order_grid_listener:
-    class: Ikuzo\SyliusRMAPlugin\Grid\ShopAccountOrderGridListener
-    tags:
-      - { name: kernel.event_listener, event: sylius.grid.sylius_shop_account_order, method: editFields }
