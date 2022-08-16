@@ -47,6 +47,19 @@ ikuzo_rma_routes:
         _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
 ```
 
+To override existing reasons, in your `config/packages/_sylius.yaml` file:
+
+```yaml
+# config/packages/_sylius.yaml
+
+ikuzo_sylius_rma:
+  reasons:
+    damaged: ikuzo_rma.form.reasons.damaged
+    wrong_product: ikuzo_rma.form.reasons.wrong_product
+    other: ikuzo_rma.form.reasons.other
+    ...
+```
+
 Add the RMAChannelInterface to the Channel model and implement it with the RMAChannelTrait
 ```php
 
