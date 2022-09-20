@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+
+    <mapped-superclass name="Ikuzo\SyliusRMAPlugin\Entity\RMARequest" table="ikuzo_rma_request">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <many-to-one field="channel" target-entity="Sylius\Component\Channel\Model\ChannelInterface">
+            <join-column name="channel_id" referenced-column-name="id" nullable="true" />
+        </many-to-one>
+
+        <many-to-one field="order" target-entity="Sylius\Component\Order\Model\OrderInterface">
+            <join-column name="order_id" referenced-column-name="id" nullable="true" />
+        </many-to-one>
+
+        <many-to-many field="variants" target-entity="Sylius\Component\Product\Model\ProductVariantInterface">
+            <join-table name="ikuzo_rma_request_item">
+                <join-columns>
+                    <join-column name="rma_request_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="product_variant_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <field name="reason" column="reason" type="string" nullable="true">
+        </field>
+
+        <field name="comment" column="comment" type="text" nullable="true">
+        </field>
+
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+
+        <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>
+
+    </mapped-superclass>
+
+</doctrine-mapping>

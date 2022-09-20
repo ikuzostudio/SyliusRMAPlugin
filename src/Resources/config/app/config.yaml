@@ -7,6 +7,14 @@ sylius_ui:
           template: '@IkuzoSyliusRMAPlugin/Channel/_form.html.twig'
           priority: 5
 
+sylius_resource:
+  resources:
+    ikuzo_rma.rma_request:
+      driver: doctrine/orm
+      classes:
+        model: Ikuzo\SyliusRMAPlugin\Entity\RMARequest
+        interface: Ikuzo\SyliusRMAPlugin\Entity\RMARequestInterface
+
 sylius_grid:
   templates:
     action:

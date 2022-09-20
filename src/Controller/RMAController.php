@@ -3,6 +3,7 @@
 namespace Ikuzo\SyliusRMAPlugin\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
+use Ikuzo\SyliusRMAPlugin\Entity\RMARequest;
 use Ikuzo\SyliusRMAPlugin\Form\RMAFormType;
 use Sylius\Component\Core\Model\Order;
 use Sylius\Component\Mailer\Sender\SenderInterface;
@@ -50,6 +51,20 @@ class RMAController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $data = $form->getData();
+
+                $rmaRequest = new RMARequest();
+
+                $rmaRequest->setChannel($channel);
+                $rmaRequest->setOrder($order);
+                $rmaRequest->setReason($data['reason']);
+                $rmaRequest->setComment($data['comment']);
+
+                foreach ($data['items'] as $item) {
+                    $rmaRequest->addVariant($item->getVariant());
+                }
+
+                $em->getManager()->persist($rmaRequest);
+                $em->getManager()->flush();
 
                 $emailSender->send('rma_request', [$channel->getRMAEmail()], [
                     'order' => $order,
