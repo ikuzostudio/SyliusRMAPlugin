@@ -29,3 +29,7 @@ ikuzo_rma:
     rma_demand: After Sales Service demand
     make_a_demand: Make a demand regarding your order
     send_rma: RMA
+    rma_requests: RMA Requests
+    reason: Reason
+    variants: Product variants
+    comment: Comment

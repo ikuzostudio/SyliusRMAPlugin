@@ -10,3 +10,8 @@ services:
     arguments:
       - '%ikuzo_sylius_rma.reasons%'
     tags: [ 'controller.service_arguments' ]
+
+  ikuzo_rma.listener.menu.admin:
+    class: Ikuzo\SyliusRMAPlugin\Menu\AdminMenuBuilder
+    tags:
+      - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addItems }

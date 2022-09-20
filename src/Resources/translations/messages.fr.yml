@@ -29,3 +29,7 @@ ikuzo_rma:
     rma_demand: Demande de SAV
     make_a_demand: Faites une demande concenrnant vore commande
     send_rma: SAV
+    rma_requests: Requêtes SAV
+    reason: Motif
+    variants: Produits
+    comment: Commentaire

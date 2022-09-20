@@ -32,14 +32,48 @@ sylius_grid:
                 parameters:
                   number: resource.number
 
-# winzou_state_machine:
-#   sylius_order:
-#     callbacks:
-#       after:
-#         sylius_send_avisverifies:
-#           on: ["fulfill"]
-#           do: ["@ikuzo_sylius_avis_verifies.event_listener.on_order_fulfilled", "sendToAvisVerifies"]
-#           args: ["object"]
+    ikuzo_admin_rma_request:
+      driver:
+        name: doctrine/orm
+        options:
+          class: Ikuzo\SyliusRMAPlugin\Entity\RMARequest
+      fields:
+        id:
+          type: string
+          label: sylius.ui.id
+          sortable: ~
+        channel:
+          type: twig
+          label: sylius.ui.channel
+          sortable: channel.code
+          options:
+            template: "@SyliusAdmin/Order/Grid/Field/channel.html.twig"
+        order:
+          type: twig
+          label: sylius.ui.order
+          path: order
+          sortable: ~
+          options:
+              template: "@SyliusAdmin/Order/Grid/Field/number.html.twig"
+        customer:
+          type: twig
+          label: sylius.ui.customer
+          path: order.customer
+          options:
+            template: "@SyliusAdmin/Order/Grid/Field/customer.html.twig"
+        reason:
+          type: twig
+          label: ikuzo_rma.ui.reason
+          options:
+            template: '@IkuzoSyliusRMAPlugin/Grid/Field/reason.html.twig'
+        variants:
+          type: twig
+          label: ikuzo_rma.ui.variants
+          options:
+            template: '@IkuzoSyliusRMAPlugin/Grid/Field/variants.html.twig'
+        comment:
+          type: string
+          label: ikuzo_rma.ui.comment
 
 sylius_mailer:
     emails:

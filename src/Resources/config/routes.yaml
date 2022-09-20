@@ -1,4 +1,9 @@
-ikuzo_rma_contact_page:
-    path: /account/orders/{number}/rma
-    defaults:
-        _controller: ikuzo_sylius_rma.controller.rma::rmaContactAction
+ikuzo_rma_routes:
+    resource: routing/shop.yaml
+    prefix: /{_locale}
+    requirements:
+        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+
+ikuzo_rma_admin:
+    resource: routing/admin.yaml
+    prefix: /%sylius_admin.path_name%

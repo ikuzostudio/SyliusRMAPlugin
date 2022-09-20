@@ -1,0 +1,9 @@
+<ul style="list-style-type: none;">
+{% for variant in data %}
+    <li>
+        {{ variant.product.name }} - {{ variant.name }}
+    </li>
+{% else %}
+
+{% endfor %}
+</ul>

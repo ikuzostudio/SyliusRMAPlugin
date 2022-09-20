@@ -1,0 +1,14 @@
+ikuzo_rma_admin:
+  resource: |
+    section: admin
+    alias: ikuzo_rma.rma_request
+    templates: "@SyliusAdmin\\Crud"
+    permission: true
+    redirect: update
+    grid: ikuzo_admin_rma_request
+    vars:
+      all:
+        subheader: ikuzo_rma.ui.rma_requests
+      index:
+        icon: newspaper
+  type: sylius.resource

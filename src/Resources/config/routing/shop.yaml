@@ -1,0 +1,4 @@
+ikuzo_rma_contact_page:
+    path: /account/orders/{number}/rma
+    defaults:
+        _controller: ikuzo_sylius_rma.controller.rma::rmaContactAction
