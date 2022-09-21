@@ -58,7 +58,8 @@ class RMAController extends AbstractController
                 $rmaRequest->setOrder($order);
                 $rmaRequest->setReason($data['reason']);
                 $rmaRequest->setComment($data['comment']);
-
+                $rmaRequest->setState('requested');
+                
                 foreach ($data['items'] as $item) {
                     $rmaRequest->addVariant($item->getVariant());
                 }

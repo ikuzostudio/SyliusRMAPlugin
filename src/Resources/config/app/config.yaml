@@ -106,7 +106,6 @@ sylius_grid:
 sylius_mailer:
     emails:
         rma_request:
-            subject: RMA request
             enabled: true
             template: '@IkuzoSyliusRMAPlugin\rma-email.txt.twig'
 

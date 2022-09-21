@@ -7,6 +7,7 @@ ikuzo_rma:
     reason: 'Raison: {reason}'
     comment: 'Commentaire: '
     items_concerned: 'Articles concernés: '
+    subject: Demande SAV
 
   form:
     products: Produits
