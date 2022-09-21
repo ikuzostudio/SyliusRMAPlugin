@@ -19,3 +19,7 @@ services:
   ikuzo_rma.processor.rma_request:
     public: true
     class: Ikuzo\SyliusRMAPlugin\Processor\RMARequestProcessor
+
+  ikuzo_rma.form.extension.channel:
+    class: Ikuzo\SyliusRMAPlugin\Form\Extension\ChannelTypeExtension
+    tags: ['form.type_extension']
