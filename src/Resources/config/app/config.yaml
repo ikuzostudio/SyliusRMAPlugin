@@ -133,3 +133,13 @@ winzou_state_machine:
       refuse:
         from: [requested]
         to: refused
+    callbacks:
+      after:
+        ikuzo_rma_accept:
+          on: ["accept"]
+          do: ["@ikuzo_rma.processor.rma_request", "accept"]
+          args: ["object"]
+        ikuzo_rma_refuse:
+          on: ["refuse"]
+          do: ["@ikuzo_rma.processor.rma_request", "refuse"]
+          args: ["object"]

@@ -15,3 +15,7 @@ services:
     class: Ikuzo\SyliusRMAPlugin\Menu\AdminMenuBuilder
     tags:
       - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addItems }
+
+  ikuzo_rma.processor.rma_request:
+    public: true
+    class: Ikuzo\SyliusRMAPlugin\Processor\RMARequestProcessor
