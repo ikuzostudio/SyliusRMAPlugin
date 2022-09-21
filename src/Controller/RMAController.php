@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ikuzo\SyliusRMAPlugin\Model\RMAChannelInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -22,16 +24,16 @@ class RMAController extends AbstractController
     {
     }
 
-    public function rmaContactAction(Request $request, String $number, ManagerRegistry $em, ChannelContextInterface $channelContext, SenderInterface $emailSender, TranslatorInterface $translator): Response
+    public function rmaContactAction(Request $request, String $number, ManagerRegistry $em, ChannelContextInterface $channelContext, SenderInterface $emailSender, TranslatorInterface $translator, OrderRepositoryInterface $orderRepository): Response
     {
         $channel = $channelContext->getChannel();
         if (!$channel instanceof RMAChannelInterface || !$channel->isRMAEnabled()) {
             return new RedirectResponse($this->generateUrl('sylius_shop_homepage'));
         }
 
-        /** @var Order|null $order */
-        $order = $em->getRepository(Order::class)->findOneByNumber($number);
-        if (!$order instanceof Order) {
+        /** @var OrderInterface|null $order */
+        $order = $orderRepository->findOneByNumber($number);
+        if (!$order instanceof OrderInterface) {
             throw new NotFoundHttpException('Order not found');
         }
 
