@@ -107,7 +107,7 @@ sylius_mailer:
     emails:
         rma_request:
             enabled: true
-            template: '@IkuzoSyliusRMAPlugin\rma-email.txt.twig'
+            template: '@IkuzoSyliusRMAPlugin\rma-email.html.twig'
 
 ikuzo_sylius_rma:
   reasons:

@@ -1,10 +1,10 @@
 ikuzo_rma:
   email:
-    customer_sent_rma_request: 'Le client {customer} (ID: {id}) a envoyé une demande de SAV.'
-    rma_date: 'Date: {date}'
-    order: 'Commande #: {order} (ID: {id})'
-    order_date: 'Date de commande: {date}'
-    reason: 'Raison: {reason}'
+    customer_sent_rma_request: 'Le client customer (ID: id) a envoyé une demande de SAV.'
+    rma_date: 'Date: date'
+    order: 'Commande #: order (ID: id)'
+    order_date: 'Date de commande: date'
+    reason: 'Raison: reason'
     comment: 'Commentaire: '
     items_concerned: 'Articles concernés: '
     subject: Demande SAV

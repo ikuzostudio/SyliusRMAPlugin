@@ -21,7 +21,7 @@
     {% endfor %}
 
     <br/>
-    {{ 'ikuzo_rma.email.reason'|trans({'reason': data.reason})}}
+    {{ 'ikuzo_rma.email.reason'|trans({'reason': ('ikuzo_rma.form.reasons.'~data.reason)|trans})}}
     <br/>
     {{ 'ikuzo_rma.email.comment'|trans }}<br/>
     {{ data.comment }}

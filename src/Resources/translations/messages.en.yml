@@ -1,10 +1,10 @@
 ikuzo_rma:
   email:
-    customer_sent_rma_request: 'Customer {customer} (ID: {id}) sent an RMA request.'
-    rma_date: 'Date: {date}'
-    order: 'Order #: {order} (ID: {id})'
-    order_date: 'Order date: {date}'
-    reason: 'Reason: {reason}'
+    customer_sent_rma_request: 'Customer customer (ID: id) sent an RMA request.'
+    rma_date: 'Date: date'
+    order: 'Order #: order (ID: id)'
+    order_date: 'Order date: date'
+    reason: 'Reason: reason'
     comment: 'Comment: '
     items_concerned: 'Items concerned: '
     subject: RMA request
