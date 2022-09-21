@@ -33,3 +33,14 @@ ikuzo_rma:
     reason: Reason
     variants: Product variants
     comment: Comment
+    requested: Requested
+    accepted: Accepted
+    refused: Refused
+    accept: Accept
+    refuse: Refuse
+
+sylius:
+  ui:
+    requested: Requested
+    accepted: Accepted
+    refused: Refused

@@ -12,3 +12,23 @@ ikuzo_rma_admin:
       index:
         icon: newspaper
   type: sylius.resource
+
+ikuzo_rma_admin_rma_request_accept:
+  path: /admin/rma-requests/{id}/accept
+  defaults:
+    _controller: ikuzo_rma.controller.rma_request::applyStateMachineTransitionAction
+    _sylius:
+      state_machine:
+        graph: ikuzo_rma_request
+        transition: accept
+      redirect: referer
+
+ikuzo_rma_admin_rma_request_refuse:
+  path: /admin/rma-requests/{id}/refuse
+  defaults:
+    _controller: ikuzo_rma.controller.rma_request::applyStateMachineTransitionAction
+    _sylius:
+      state_machine:
+        graph: ikuzo_rma_request
+        transition: refuse
+      redirect: referer

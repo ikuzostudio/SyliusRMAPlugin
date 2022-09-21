@@ -29,4 +29,7 @@ interface RMARequestInterface extends ResourceInterface, TimestampableInterface
 
     public function getComment(): string;
     public function setComment(string $comment): void;
+
+    public function getState(): string;
+    public function setState(string $state): void;
 }

@@ -19,6 +19,8 @@ sylius_grid:
   templates:
     action:
       send_rma: '@IkuzoSyliusRMAPlugin/Grid/Action/send_rma.html.twig'
+      ikuzo_rma_accept: '@IkuzoSyliusRMAPlugin/Grid/Action/accept.html.twig'
+      ikuzo_rma_refuse: '@IkuzoSyliusRMAPlugin/Grid/Action/refuse.html.twig'
   grids:
     sylius_shop_account_order:
       actions:
@@ -74,6 +76,32 @@ sylius_grid:
         comment:
           type: string
           label: ikuzo_rma.ui.comment
+        state:
+          type: twig
+          label: sylius.ui.state
+          sortable: ~
+          options:
+            template: "@SyliusUi/Grid/Field/state.html.twig"
+            vars:
+              labels: "@IkuzoSyliusRMAPlugin/Label/State"
+      actions:
+        item:
+          ikuzo_rma_accept:
+            type: ikuzo_rma_accept
+            label: ikuzo_rma.ui.accept
+            options:
+              link:
+                route: ikuzo_rma_admin_rma_request_accept
+                parameters:
+                  id: resource.id 
+          ikuzo_rma_refuse:
+            type: ikuzo_rma_refuse
+            label: ikuzo_rma.ui.refuse
+            options:
+              link:
+                route: ikuzo_rma_admin_rma_request_refuse
+                parameters:
+                  id: resource.id 
 
 sylius_mailer:
     emails:
@@ -87,3 +115,21 @@ ikuzo_sylius_rma:
     damaged: ikuzo_rma.form.reasons.damaged
     wrong_product: ikuzo_rma.form.reasons.wrong_product
     other: ikuzo_rma.form.reasons.other
+
+winzou_state_machine:
+  ikuzo_rma_request:
+    class: Ikuzo\SyliusRMAPlugin\Entity\RMARequest
+    property_path: state
+    graph: ikuzo_rma_request
+    state_machine_class: "%sylius.state_machine.class%"
+    states:
+      requested: ~
+      accepted: ~
+      refused: ~
+    transitions:
+      accept:
+        from: [requested]
+        to: accepted
+      refuse:
+        from: [requested]
+        to: refused

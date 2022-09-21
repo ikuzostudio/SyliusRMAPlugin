@@ -1,0 +1,9 @@
+{% set path = options.link.url|default(path(options.link.route, options.link.parameters)) %}
+
+{% if data.state in ['requested'] %}
+    <form action="{{ path }}" method="post" novalidate>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token(data.id) }}" />
+        <input type="hidden" name="_method" value="PUT">
+        <button type="submit" class="ui icon labeled tiny red fluid loadable button"><i class="times icon"></i> {{ action.label|trans }}</button>
+    </form>
+{% endif %}

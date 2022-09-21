@@ -33,3 +33,14 @@ ikuzo_rma:
     reason: Motif
     variants: Produits
     comment: Commentaire
+    requested: Demande en cours
+    accepted: Acceptée
+    refused: Refusée
+    accept: Accepter
+    refuse: Refuser
+
+sylius:
+  ui:
+    requested: Demande en cours
+    accepted: Acceptée
+    refused: Refusée

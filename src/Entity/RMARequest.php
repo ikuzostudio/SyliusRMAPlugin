@@ -30,6 +30,8 @@ class RMARequest implements RMARequestInterface
 
     protected $comment;
 
+    protected $state;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -95,6 +97,15 @@ class RMARequest implements RMARequestInterface
     public function setComment(string $comment): void
     {
         $this->comment = $comment;
+    }
+
+    public function getState(): string
+    {
+        return $this->state;
+    }
+    public function setState(string $state): void
+    {
+        $this->state = $state;
     }
 
 }
