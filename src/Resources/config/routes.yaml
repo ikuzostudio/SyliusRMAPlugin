@@ -1,8 +1,5 @@
 ikuzo_rma_routes:
     resource: routing/shop.yaml
-    prefix: /{_locale}
-    requirements:
-        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
 
 ikuzo_rma_admin:
     resource: routing/admin.yaml
