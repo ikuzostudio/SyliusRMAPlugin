@@ -5,7 +5,6 @@ namespace Ikuzo\SyliusRMAPlugin\Controller;
 use Doctrine\Persistence\ManagerRegistry;
 use Ikuzo\SyliusRMAPlugin\Entity\RMARequest;
 use Ikuzo\SyliusRMAPlugin\Form\RMAFormType;
-use Sylius\Component\Core\Model\Order;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -13,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ikuzo\SyliusRMAPlugin\Model\RMAChannelInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,7 +24,7 @@ class RMAController extends AbstractController
     {
     }
 
-    public function rmaContactAction(Request $request, String $number, ManagerRegistry $em, ChannelContextInterface $channelContext, SenderInterface $emailSender, TranslatorInterface $translator, OrderRepositoryInterface $orderRepository): Response
+    public function rmaContactAction(Request $request, String $number, ManagerRegistry $em, ChannelContextInterface $channelContext, SenderInterface $emailSender, TranslatorInterface $translator, OrderRepositoryInterface $orderRepository, CustomerContextInterface $customerContext): Response
     {
         $channel = $channelContext->getChannel();
         if (!$channel instanceof RMAChannelInterface || !$channel->isRMAEnabled()) {
@@ -35,6 +35,10 @@ class RMAController extends AbstractController
         $order = $orderRepository->findOneByNumber($number);
         if (!$order instanceof OrderInterface) {
             throw new NotFoundHttpException('Order not found');
+        }
+
+        if (!$order->getCustomer() == $customerContext->getCustomer()) {
+            return new RedirectResponse($this->generateUrl('sylius_shop_homepage'));
         }
 
         if ($order->getState() != 'fulfilled') {
